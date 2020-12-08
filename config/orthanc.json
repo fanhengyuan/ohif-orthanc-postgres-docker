@@ -12,7 +12,7 @@
   // Path to the directory that holds the SQLite index (if unset, the
   // value of StorageDirectory is used). This index could be stored on
   // a RAM-drive or a SSD device for performance reasons.
-  "IndexDirectory": "/var/lib/orthanc/db",
+  "IndexDirectory": "",
   // Path to the directory where Orthanc stores its large temporary
   // files. The content of this folder can be safely deleted if
   // Orthanc once stopped. The folder must exist. The corresponding
@@ -361,7 +361,7 @@
   // Locale to be used by Orthanc. Currently, only used if comparing
   // strings in a case-insensitive way. It should be safe to keep this
   // value undefined, which lets Orthanc autodetect the suitable locale.
-  "Locale": "zh_CN.UTF-8",
+  "Locale": "en_US.UTF-8",
   // Register a new tag in the dictionary of DICOM tags that are known
   // to Orthanc. Each line must contain the tag (formatted as 2
   // hexadecimal numbers), the value representation (2 upcase

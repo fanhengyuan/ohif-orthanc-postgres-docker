@@ -1,6 +1,6 @@
 version: '3.6'
-services:
 
+services:
   viewer:
     image: nginx:1.19.5-alpine
     container_name: viewer
@@ -20,6 +20,10 @@ services:
       - ${VIEWER_DIST}:/usr/share/nginx/html/:ro
     environment:
       - TZ=Asia/Shanghai
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "800m"
 
   orthanc:
     image: osimis/orthanc:20.11.2
@@ -40,15 +44,22 @@ services:
       - ${ORTHANC_DB_MNT}:/var/lib/orthanc/db
     environment:
       # DICOMWeb Plugin
-      - DW_ENABLED=true
+      - DICOM_WEB_PLUGIN_ENABLED=true
       # Postgres Plugin
-      - PG_ENABLED=true
+      - POSTGRESQL_PLUGIN_ENABLED=true
       - TZ=Asia/Shanghai
     command: /etc/orthanc/orthanc.json
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "800m"
 
   postgres:
     image: postgres:13.1
     container_name: postgres
+    restart: always
+    ports:
+      - '5432:5432'
     networks:
       - backend
     volumes:
@@ -59,6 +70,10 @@ services:
       - PGDATA=${PGDATA}
       - POSTGRES_DB=orthanc
       - TZ=Asia/Shanghai
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "800m"
 
 networks:
   frontend:
